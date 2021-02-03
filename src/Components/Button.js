@@ -1,7 +1,7 @@
 import React from "react";
 import "./Button.css";
 import { useHistory } from "react-router-dom";
-function Button({ meetingNumber, password }) {
+function Button({ meetingNumber, password, nickname }) {
   const history = useHistory();
 
   return (
