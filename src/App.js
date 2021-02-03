@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
+  Switch,
   useParams,
 } from "react-router-dom";
+import { starWars, uniqueNamesGenerator } from "unique-names-generator";
+import "./App.css";
 import Button from "./Components/Button";
 let apiKeys = {
   apiKey: process.env.REACT_APP_ZOOM_API_KEY,
   apiSecret: process.env.REACT_APP_ZOOM_API_SECRET_KEY,
 };
+
+const config = {
+  dictionaries: [starWars],
+};
+
 let meetConfig = {
   apiKey: apiKeys.apiKey,
   meetingNumber: "77870605419",
-  userName: "Usuário",
+  userName: uniqueNamesGenerator(config),
   userEmail: "example@example.com", // must be the attendee email address
   passWord: "0hZeCd",
   role: 0,
