@@ -14,7 +14,7 @@ const meetConfig = {
   apiKey: "T6eHyJQRSiujIDALYMIshA", // your Zoom api key (JWT)
   apiSecret: "", // fill this if you are generating your api secret in frontend
   meetingNumber: "95850490601",
-  userName: uniqueNamesGenerator(config),
+  userName: uniqueNamesGenerator(config), //feel free to change this :)
   userEmail: "example@example.com", // must be the attendee email address
   password: "Senha123",
   role: 1, // 0 for participant 1 to enter as a host 5 to enter in meeting control mode
@@ -53,6 +53,9 @@ const Zoom = () => {
   );
 
   useEffect(() => {
+    //we need to import websdk this way because of "black screen issue" see more here:
+    //https://devforum.zoom.us/t/i-get-a-black-screen-when-just-importing-zoommtg-from-zoomus-websdk/38663
+    
     const { ZoomMtg } = require("@zoomus/websdk");
 
     ZoomMtg.setZoomJSLib("https://source.zoom.us/1.9.0/lib", "/av");
