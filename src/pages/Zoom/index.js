@@ -74,7 +74,7 @@ const Zoom = () => {
     //   role: meetConfig.role,
     //   success: function (res) {
     //     setTimeout(() => {
-    //       joinMeeting(res.result, meetConfig);
+    //       joinMeeting(res.result);
     //     }, 1000);
     //   },
     // });
