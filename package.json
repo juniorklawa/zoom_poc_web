@@ -1,5 +1,6 @@
 {
   "name": "zoom_poc_web",
+  "author": "Everaldo Jr",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

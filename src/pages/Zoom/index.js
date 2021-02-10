@@ -1,25 +1,8 @@
+import axios from "axios";
 import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { starWars, uniqueNamesGenerator } from "unique-names-generator";
+import meetConfig from "../../config/meetingConfig";
 import "./styles.css";
-import axios from "axios";
-
-const config = {
-  dictionaries: [starWars],
-};
-
-const signatureEndPoint =
-  "https://3013f69ea98c.ngrok.io/zoom/meeting/signature";
-
-const meetConfig = {
-  apiKey: "T6eHyJQRSiujIDALYMIshA", // your Zoom api key (JWT)
-  apiSecret: "", // fill this if you are generating your api secret in frontend
-  meetingNumber: "95850490601",
-  userName: uniqueNamesGenerator(config), //feel free to change this :)
-  userEmail: "example@example.com", // must be the attendee email address
-  password: "Senha123",
-  role: 1, // 0 for participant 1 to enter as a host 5 to enter in meeting control mode
-};
 
 const Zoom = () => {
   const { meetingNumber, password } = useParams();
@@ -67,36 +50,35 @@ const Zoom = () => {
     ZoomMtg.prepareJssdk();
 
     // USE THIS METHOD IF YOU ARE GENERATING YOUR SIGNATURE IN FRONTEND (NOT RECOMMENDED TO PROD)
-    // ZoomMtg.generateSignature({
-    //   meetingNumber: meetingNumber,
-    //   apiKey: process.env.REACT_APP_ZOOM_API_KEY,
-    //   apiSecret: process.env.REACT_APP_ZOOM_API_SECRET_KEY,
-    //   role: meetConfig.role,
-    //   success: function (res) {
-    //     setTimeout(() => {
-    //       joinMeeting(res.result);
-    //     }, 1000);
-    //   },
-    // });
+    ZoomMtg.generateSignature({
+      meetingNumber: meetingNumber,
+      apiKey: meetConfig.apiKey,
+      apiSecret: meetConfig.apiSecret,
+      role: meetConfig.role,
+      success: function (res) {
+        setTimeout(() => {
+          joinMeeting(res.result);
+        }, 1000);
+      },
+    });
 
     // USE THIS METHOD IF YOU ARE GENERATING YOUR SIGNATURE IN BACKEND
+    // const fetchData = async () => {
+    //   try {
+    //     const { data } = await axios.post(meetConfig.signatureEndPoint, {
+    //       meetingId: meetingNumber,
+    //       role: meetConfig.role,
+    //     });
+    //     joinMeeting(data.signature);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.post(signatureEndPoint, {
-          meetingId: meetingNumber,
-          role: meetConfig.role,
-        });
-        joinMeeting(data.signature);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
+    // fetchData();
   }, [joinMeeting, meetingNumber]);
 
-  return <div className="App">Zoom Testing</div>;
+  return <> </>;
 };
 
 export default Zoom;
